@@ -1,9 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import Menu from './components/Menu/Menu';
 
-function App() {
+const App = ()=> {
   return (
     <div className="App">
+      <Menu/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
