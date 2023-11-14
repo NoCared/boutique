@@ -6,7 +6,7 @@ const SectionArticles = (props)=>{
         <section>
             <h1>Mes fabuleux articles : </h1>
             {/* emplacement de mes cards articles */}
-            <div>
+            <div className='articleList'>
                 {
                     props.articlesProp.articlesApp.map((value,index)=>{
                         return(
