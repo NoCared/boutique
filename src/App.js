@@ -2,6 +2,7 @@ import './App.css';
 import Menu from './components/Menu/Menu';
 import React from 'react';
 import SectionArticles from './components/SectionArticles/SectionArticles';
+import Cart from './components/Cart/Cart';
 import articles from './articles.js';
 import BoutiqueContext from './BoutiqueContext.js';
 
@@ -55,6 +56,7 @@ class App extends React.Component {
             //         return {
             //             ...prevState,
             //             articlesApp: newArticlesApp,
+            //              panier:[...this.state.panier,i],
             //         };
             //     });
 
@@ -69,7 +71,7 @@ class App extends React.Component {
                     <Menu />
                 </header>
                 <main>
-                    <div>{this.state.panier}</div>
+                    <Cart panierLength={this.state.panier.length}>Texte du titre pour le composant Cart</Cart>
                     <SectionArticles articlesProp={this.state} />
                 </main>
                 <footer>
