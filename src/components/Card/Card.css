@@ -16,7 +16,7 @@ img{
 }
 
 .cardDisplay .cardImage{
-    width: 50vw;
+    max-width: 50vw;
     height: 30vh;
 }
 
@@ -36,4 +36,10 @@ img{
     font-size: 1.2rem;
     margin-left: 1rem;
     font-weight: 600;
+}
+
+@media screen and (min-width: 576px) {
+    .cardDisplay {
+      width: 30%; /* Exemple de style différent pour les écrans plus larges */
+    }
 }
