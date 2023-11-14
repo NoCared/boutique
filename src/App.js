@@ -16,6 +16,30 @@ class App extends React.Component {
         }
     }
 
+
+    addItemPanier = (id) => {
+
+        const index = this.state.panier.findIndex(x => x.id === id);
+        if (index >= 0) {
+            this.setState(prevState => {
+                const newPanier = [...prevState.panier];
+                newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte + 1 };
+
+                return {
+                    ...prevState,
+                    panier: newPanier,
+                };
+            });
+        }
+        else {
+            this.setState({
+                ...this.state,
+                // mise à jour de mon panier avec l'ajout de i
+                panier: [...this.state.panier, {id:id,qte:1}],
+            });
+        }
+    }
+
     //Creation d'une méthode pour décrémenter un article
     qteDecrement = (i) => {
         if (this.state.articlesApp[i].qte > 0) {
@@ -31,10 +55,11 @@ class App extends React.Component {
                 ...this.state,
                 // mise à jour de ma qte pour i (id de l'article)
                 articlesApp: newArticle,
-                // mise à jour de mon panier avec l'ajout de i
-                panier:[...this.state.panier,i],
+                // // mise à jour de mon panier avec l'ajout de i
+                // panier: [...this.state.panier, i],
             });
-            
+
+            this.addItemPanier(i);
 
             //// ------- OTHER
             // let newArticle = this.state.articlesApp.map((value, index) => {

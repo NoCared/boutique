@@ -7,7 +7,8 @@ import React from 'react';
 
 const CartDetails = (props) => {
     const boutiqueContext = React.useContext(BoutiqueContext);
-    const article = boutiqueContext.articlesApp[boutiqueContext.panier[props.id]];
+    const articlePanier = boutiqueContext.panier[props.id];
+    const article = boutiqueContext.articlesApp[articlePanier.id];
 
 
     return (
@@ -22,10 +23,15 @@ const CartDetails = (props) => {
                 <button type="input" value={"Remove"}>-</button>
             </span>
             <span>
-                0
+                {articlePanier.qte}
             </span>
             <span>
-                <button type="input" value={"Add"}>+</button>
+                <button type="input" value={"Add"}
+                onClick={
+                    () => {
+                        boutiqueContext.qteDecrement(articlePanier.id);
+                    }}
+                >+</button>
             </span>
         </div>
     );
