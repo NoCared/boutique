@@ -11,7 +11,7 @@ class App extends React.Component {
         this.state = {
             articlesApp: articles,
             qteDecrement: this.qteDecrement.bind(this),
-            test: "rghiuegr"
+            panier: []
         }
     }
 
@@ -28,8 +28,12 @@ class App extends React.Component {
             newArticle[i].qte--;
             this.setState({
                 ...this.state,
-                articlesApp: newArticle
+                // mise à jour de ma qte pour i (id de l'article)
+                articlesApp: newArticle,
+                // mise à jour de mon panier avec l'ajout de i
+                panier:[...this.state.panier,i],
             });
+            
 
             //// ------- OTHER
             // let newArticle = this.state.articlesApp.map((value, index) => {
@@ -43,26 +47,19 @@ class App extends React.Component {
             //     articlesApp: newArticle
             // })
 
+            ////// ------------------------- OPTIMISED
+            //     this.setState(prevState => {
+            //         const newArticlesApp = [...prevState.articlesApp];
+            //         newArticlesApp[i] = { ...newArticlesApp[i], qte: newArticlesApp[i].qte - 1 };
 
-            this.setState({
-                ...this.state,
-                test: "bjr"
-            })
+            //         return {
+            //             ...prevState,
+            //             articlesApp: newArticlesApp,
+            //         };
+            //     });
+
+
         }
-
-        ////// ------------------------- OPTIMISED
-        // if (this.state.articlesApp[i].qte > 0) {
-        //     this.setState(prevState => {
-        //         const newArticlesApp = [...prevState.articlesApp];
-        //         newArticlesApp[i] = { ...newArticlesApp[i], qte: newArticlesApp[i].qte - 1 };
-
-        //         return {
-        //             ...prevState,
-        //             articlesApp: newArticlesApp,
-        //             test: "bjr"
-        //         };
-        //     });
-        // }
     }
 
     render() {
@@ -72,7 +69,7 @@ class App extends React.Component {
                     <Menu />
                 </header>
                 <main>
-                    <div>{this.state.test}</div>
+                    <div>{this.state.panier}</div>
                     <SectionArticles articlesProp={this.state} />
                 </main>
                 <footer>
