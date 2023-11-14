@@ -38,6 +38,9 @@ const CartDetails = (props) => {
                     disabled={article.qte <= 0 ? true : false}
                 >+</button>
             </span>
+            <span>
+                {article.price * articlePanier.qte} £
+            </span>
         </div>
     );
 }
