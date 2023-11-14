@@ -20,7 +20,11 @@ const CartDetails = (props) => {
                 {article.name}
             </span>
             <span>
-                <button type="input" value={"Remove"}>-</button>
+                <button type="input" value={"Remove"}
+                onClick={
+                    () => {
+                        boutiqueContext.qteIncrement(articlePanier.id);
+                    }}>-</button>
             </span>
             <span>
                 {articlePanier.qte}
@@ -31,6 +35,7 @@ const CartDetails = (props) => {
                     () => {
                         boutiqueContext.qteDecrement(articlePanier.id);
                     }}
+                    disabled={article.qte <= 0 ? true : false}
                 >+</button>
             </span>
         </div>

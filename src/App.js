@@ -12,6 +12,7 @@ class App extends React.Component {
         this.state = {
             articlesApp: articles,
             qteDecrement: this.qteDecrement.bind(this),
+            qteIncrement: this.qteIncrement.bind(this),
             panier: []
         }
     }
@@ -35,9 +36,26 @@ class App extends React.Component {
             this.setState({
                 ...this.state,
                 // mise à jour de mon panier avec l'ajout de i
-                panier: [...this.state.panier, {id:id,qte:1}],
+                panier: [...this.state.panier, { id: id, qte: 1 }],
             });
         }
+    }
+    removeItemPanier = (id) => {
+        const index = this.state.panier.findIndex(x => x.id === id);
+        this.setState(prevState => {
+            const newPanier = [...prevState.panier];
+            newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte - 1 };
+
+            if (newPanier[index].qte <= 0)
+            {
+                newPanier.splice(index,1);
+            }
+
+            return {
+                ...prevState,
+                panier: newPanier,
+            };
+        });
     }
 
     //Creation d'une méthode pour décrémenter un article
@@ -87,6 +105,18 @@ class App extends React.Component {
 
 
         }
+    }
+
+    //Creation d'une méthode pour incrémenter un article
+    qteIncrement = (i) => {
+        let newArticle = this.state.articlesApp.slice();
+        newArticle[i].qte++;
+        this.setState({
+            ...this.state,
+            articlesApp: newArticle,
+        });
+
+        this.removeItemPanier(i);
     }
 
     render() {
