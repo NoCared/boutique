@@ -13,7 +13,8 @@ class App extends React.Component {
             articlesApp: articles,
             qteDecrement: this.qteDecrement.bind(this),
             qteIncrement: this.qteIncrement.bind(this),
-            panier: []
+            panier: [],
+            totalPrice: 0
         }
     }
 
@@ -22,27 +23,29 @@ class App extends React.Component {
      * @param {int} id 
      * @param {int} qteModify 
      */
-    modifyItemPanier = (id,qteModify) => {
+    modifyItemPanier = (id, qteModify) => {
         const index = this.state.panier.findIndex(x => x.id === id);
-
         if (index >= 0) {
             this.setState(prevState => {
                 const newPanier = [...prevState.panier];
                 newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte + qteModify };
+                const modifPrice = this.state.totalPrice + qteModify * this.state.articlesApp[id].price;
 
-                if (newPanier[index].qte <= 0)
-                {
-                    newPanier.splice(index,1);
+                if (newPanier[index].qte <= 0) {
+                    newPanier.splice(index, 1);
                 }
                 return {
                     ...prevState,
+                    totalPrice: modifPrice,
                     panier: newPanier,
                 };
             });
         }
-        else if (qteModify > 0){
+        else if (qteModify > 0) {
+            const modifPrice = this.state.totalPrice + qteModify * this.state.articlesApp[id].price;
             this.setState({
                 ...this.state,
+                totalPrice: modifPrice,
                 // mise à jour de mon panier avec l'ajout de i
                 panier: [...this.state.panier, { id: id, qte: qteModify }],
             });
@@ -108,7 +111,7 @@ class App extends React.Component {
                 // panier: [...this.state.panier, i],
             });
 
-            this.modifyItemPanier(i,1);
+            this.modifyItemPanier(i, 1);
 
             //// ------- OTHER
             // let newArticle = this.state.articlesApp.map((value, index) => {
@@ -147,7 +150,7 @@ class App extends React.Component {
             articlesApp: newArticle,
         });
 
-        this.modifyItemPanier(i,-1);
+        this.modifyItemPanier(i, -1);
     }
 
     render() {
@@ -157,7 +160,7 @@ class App extends React.Component {
                     <Menu />
                 </header>
                 <main>
-                    <Cart panierLength={this.state.panier.length}>Texte du titre pour le composant Cart</Cart>
+                    <Cart panierLength={this.state.panier.length} panierCost={this.state.totalPrice}>Texte du titre pour le composant Cart</Cart>
                     <SectionArticles articlesProp={this.state} />
                 </main>
                 <footer>

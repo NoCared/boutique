@@ -17,6 +17,9 @@ const Cart = (props) => {
                     })
                 }
             </div>
+            <p>
+                Total price : {props.panierCost}
+            </p>
         </section>
     )
 }
