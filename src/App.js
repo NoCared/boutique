@@ -5,6 +5,7 @@ import SectionArticles from './components/SectionArticles/SectionArticles';
 import Cart from './components/Cart/Cart';
 import articles from './articles.js';
 import BoutiqueContext from './BoutiqueContext.js';
+import MyDrawer from './components/MyDrawer/MyDrawer.js';
 
 class App extends React.Component {
     constructor(props) {
@@ -157,7 +158,7 @@ class App extends React.Component {
         return (
             <BoutiqueContext.Provider value={this.state}>
                 <header>
-                    <Menu />
+                    <MyDrawer/>
                 </header>
                 <main>
                     <Cart panierLength={this.state.panier.length} panierCost={this.state.totalPrice}>Texte du titre pour le composant Cart</Cart>
