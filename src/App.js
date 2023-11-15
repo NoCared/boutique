@@ -17,7 +17,11 @@ class App extends React.Component {
         }
     }
 
-
+    /**
+     * Modifie la quantité d'article dans le panier pour un id spécifique 
+     * @param {int} id 
+     * @param {int} qteModify 
+     */
     modifyItemPanier = (id,qteModify) => {
         const index = this.state.panier.findIndex(x => x.id === id);
 
@@ -36,7 +40,7 @@ class App extends React.Component {
                 };
             });
         }
-        else {
+        else if (qteModify > 0){
             this.setState({
                 ...this.state,
                 // mise à jour de mon panier avec l'ajout de i
