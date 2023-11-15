@@ -18,14 +18,18 @@ class App extends React.Component {
     }
 
 
-    addItemPanier = (id) => {
-
+    modifyItemPanier = (id,qteModify) => {
         const index = this.state.panier.findIndex(x => x.id === id);
+
         if (index >= 0) {
             this.setState(prevState => {
                 const newPanier = [...prevState.panier];
-                newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte + 1 };
+                newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte + qteModify };
 
+                if (newPanier[index].qte <= 0)
+                {
+                    newPanier.splice(index,1);
+                }
                 return {
                     ...prevState,
                     panier: newPanier,
@@ -36,27 +40,50 @@ class App extends React.Component {
             this.setState({
                 ...this.state,
                 // mise à jour de mon panier avec l'ajout de i
-                panier: [...this.state.panier, { id: id, qte: 1 }],
+                panier: [...this.state.panier, { id: id, qte: qteModify }],
             });
         }
     }
-    removeItemPanier = (id) => {
-        const index = this.state.panier.findIndex(x => x.id === id);
-        this.setState(prevState => {
-            const newPanier = [...prevState.panier];
-            newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte - 1 };
 
-            if (newPanier[index].qte <= 0)
-            {
-                newPanier.splice(index,1);
-            }
+    // addItemPanier = (id) => {
 
-            return {
-                ...prevState,
-                panier: newPanier,
-            };
-        });
-    }
+    //     const index = this.state.panier.findIndex(x => x.id === id);
+    //     if (index >= 0) {
+    //         this.setState(prevState => {
+    //             const newPanier = [...prevState.panier];
+    //             newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte + 1 };
+
+    //             return {
+    //                 ...prevState,
+    //                 panier: newPanier,
+    //             };
+    //         });
+    //     }
+    //     else {
+    //         this.setState({
+    //             ...this.state,
+    //             // mise à jour de mon panier avec l'ajout de i
+    //             panier: [...this.state.panier, { id: id, qte: 1 }],
+    //         });
+    //     }
+    // }
+    // removeItemPanier = (id) => {
+    //     const index = this.state.panier.findIndex(x => x.id === id);
+    //     this.setState(prevState => {
+    //         const newPanier = [...prevState.panier];
+    //         newPanier[index] = { ...newPanier[index], qte: newPanier[index].qte - 1 };
+
+    //         if (newPanier[index].qte <= 0)
+    //         {
+    //             newPanier.splice(index,1);
+    //         }
+
+    //         return {
+    //             ...prevState,
+    //             panier: newPanier,
+    //         };
+    //     });
+    // }
 
     //Creation d'une méthode pour décrémenter un article
     qteDecrement = (i) => {
@@ -77,7 +104,7 @@ class App extends React.Component {
                 // panier: [...this.state.panier, i],
             });
 
-            this.addItemPanier(i);
+            this.modifyItemPanier(i,1);
 
             //// ------- OTHER
             // let newArticle = this.state.articlesApp.map((value, index) => {
@@ -116,7 +143,7 @@ class App extends React.Component {
             articlesApp: newArticle,
         });
 
-        this.removeItemPanier(i);
+        this.modifyItemPanier(i,-1);
     }
 
     render() {
