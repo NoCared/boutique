@@ -18,7 +18,7 @@ const Cart = (props) => {
                 }
             </div>
             <p>
-                Total price : {props.panierCost}
+                {props.panierCost === 0 ? "Panier vide" : "Total price : " + props.panierCost}
             </p>
         </section>
     )
